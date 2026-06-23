@@ -89,7 +89,7 @@
   .toast-box.hiding{animation:toastOut .28s ease forwards;}
   @keyframes ddPop{from{opacity:0;transform:translateY(26px) scale(.96);}to{opacity:1;transform:none;}}
   @keyframes ddImgPan{0%{transform:scale(1.08) translateY(0);}100%{transform:scale(1.16) translateY(-8px);}}
-  .dd-card{animation:ddPop .42s cubic-bezier(.2,.8,.25,1) both;}
+  .dd-card{transition:transform .35s cubic-bezier(.2,.8,.25,1);}
   .dd-cta{transition:transform .22s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background .22s;}
   .dd-cta:hover{transform:translateY(-2px);box-shadow:0 18px 38px -14px rgba(233,121,50,.85);}
   .dd-cta:active{transform:translateY(0) scale(.98);}
