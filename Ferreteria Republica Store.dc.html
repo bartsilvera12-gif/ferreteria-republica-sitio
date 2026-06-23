@@ -1221,13 +1221,13 @@ class Component extends DCLogic {
     const catCaretStyle = 'transition:transform .25s ease;transform:rotate(' + (cmo ? '180deg' : '0deg') + ');';
     const catMenuStyle = 'position:absolute;top:34px;right:0;z-index:60;width:300px;background:#fff url(assets/catdd-bg.png) center center/cover no-repeat;border:1px solid #E7EAF0;border-radius:16px;padding:12px;box-shadow:0 28px 60px -22px rgba(2,18,54,.5);transform-origin:top right;transition:opacity .22s ease,transform .22s ease;opacity:' + (cmo ? '1' : '0') + ';transform:scale(' + (cmo ? '1' : '.95') + ');pointer-events:' + (cmo ? 'auto' : 'none') + ';';
 
-    const offerProds = all.filter(p => p.old).slice(0, 3);
+    const offerProds = this.catalog().filter(p => p.old).slice(0, 3);
     const offers = offerProds.map(p => ({
       name: p.name, cat: p.cat, attr: p.attr,
       pct: Math.round((1 - p.price / p.old) * 100),
-      img: prodPhotos[p.img] || '',
+      img: prodPhotos[p.img] || ('assets/prod/' + p.img + '.png'),
       priceLabel: fmt(p.price), oldLabel: fmt(p.old),
-      open: () => this.setState({ detail: p }),
+      open: () => this.openDetail(p.id),
       add: () => this.addToCart(p, 1)
     }));
 
