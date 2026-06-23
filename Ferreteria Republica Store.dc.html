@@ -827,10 +827,10 @@
           <div style="display:flex;gap:12px;align-items:center;margin-top:auto;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;border:1.5px solid #E2E6EC;border-radius:12px;overflow:hidden;">
               <button onClick="{{ detail.dec }}" class="dd-qbtn" style="width:44px;height:50px;border:none;background:#F2F5F9;color:#021F5F;font-size:20px;cursor:pointer;">−</button>
-              <span style="min-width:40px;text-align:center;font-weight:700;font-size:16px;">{{ detail.qty }}</span>
+              <span id="dd-qty" style="min-width:40px;text-align:center;font-weight:700;font-size:16px;">{{ detail.qty }}</span>
               <button onClick="{{ detail.inc }}" class="dd-qbtn" style="width:44px;height:50px;border:none;background:#F2F5F9;color:#021F5F;font-size:20px;cursor:pointer;">+</button>
             </div>
-            <button onClick="{{ detail.add }}" class="dd-cta" style="flex:1;min-width:180px;height:50px;border:none;border-radius:13px;background:linear-gradient(135deg,#F4552A,#E97932);color:#fff;font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 14px 30px -12px rgba(233,121,50,.8);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 12h10l2-8H6"/></svg>Agregar — {{ detail.lineTotal }}</button>
+            <button onClick="{{ detail.add }}" class="dd-cta" style="flex:1;min-width:180px;height:50px;border:none;border-radius:13px;background:linear-gradient(135deg,#F4552A,#E97932);color:#fff;font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 14px 30px -12px rgba(233,121,50,.8);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 12h10l2-8H6"/></svg>Agregar — <span id="dd-add-amt">{{ detail.lineTotal }}</span></button>
           </div>
           <a href="{{ detail.consult }}" target="_blank" style="margin-top:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:700;color:#25D366;text-decoration:none;" style-hover="color:#1aa34f;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z"/></svg>Consultar disponibilidad por WhatsApp</a>
         </div>
@@ -1140,8 +1140,15 @@ class Component extends DCLogic {
     });
   }
   cartRemove(id) { this.setState(s => { const cart = { ...s.cart }; delete cart[id]; return { cart }; }); }
-  openDetail(id) { this.setState({ detail: id, menuOpen: false }); }
+  openDetail(id) { this._detailQty = this.state.qtys[id] || 1; this.setState({ detail: id, menuOpen: false }); }
   closeDetail() { this.setState({ detail: null }); }
+  _ddQtyChange(prod, delta) {
+    this._detailQty = Math.max(1, (this._detailQty || 1) + delta);
+    const qe = document.getElementById('dd-qty');
+    const ae = document.getElementById('dd-add-amt');
+    if (qe) qe.textContent = this._detailQty;
+    if (ae) ae.textContent = this.fmt(prod.price * this._detailQty);
+  }
 
   catalog() {
     return [
@@ -1373,7 +1380,8 @@ class Component extends DCLogic {
     const dp = st.detail ? this.catalog().find(p => p.id === st.detail) : null;
     let detail = null;
     if (dp) {
-      const dq = st.qtys[dp.id] ?? 1;
+      if (this._detailQty == null) this._detailQty = st.qtys[dp.id] || 1;
+      const dq = this._detailQty;
       const db = badgeMap[dp.badge];
       detail = {
         name: dp.name, cat: dp.cat, attr: dp.attr, desc: dp.desc,
@@ -1381,11 +1389,13 @@ class Component extends DCLogic {
         savePct: dp.old ? '-' + Math.round((1 - dp.price / dp.old) * 100) + '%' : '',
         lineTotal: fmt(dp.price * dq),
         img: prodPhotos[dp.img] || 'assets/prod/' + dp.img + '.png', qty: dq, badgeText: db.text, badgeBg: db.bg, badgeFg: db.fg,
-        inc: () => this.setQty(dp.id, dq + 1),
-        dec: () => this.setQty(dp.id, Math.max(1, dq - 1)),
-        add: () => { this.addToCart(dp, dq); this.setState({ detail: null }); },
+        inc: () => this._ddQtyChange(dp, 1),
+        dec: () => this._ddQtyChange(dp, -1),
+        add: () => { const q = this._detailQty || 1; this.addToCart(dp, q); this._detailQty = null; this.setState({ detail: null }); },
         consult: waBase('Hola! Quiero consultar por: ' + dp.name + ' (' + dp.attr + ').')
       };
+    } else {
+      this._detailQty = null;
     }
     const detailOpen = !!detail;
     const detailWrapStyle = 'position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .3s ease;opacity:' +
