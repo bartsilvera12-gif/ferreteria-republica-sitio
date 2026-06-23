@@ -1107,42 +1107,52 @@ class Component extends DCLogic {
     const waBase = (msg) => 'https://wa.me/' + this.wa + '?text=' + encodeURIComponent(msg);
 
     const prodPhotos = {
+      // Herramientas
       taladro:        'https://images.unsplash.com/photo-1622044939413-0b829c342434?auto=format&fit=crop&w=500&q=80',
       destornilladores:'https://images.unsplash.com/photo-1542493852-d195f3500588?auto=format&fit=crop&w=500&q=80',
       llave:          'https://images.unsplash.com/photo-1611288870280-4a322b8ec7ec?auto=format&fit=crop&w=500&q=80',
-      martillo:       'https://images.unsplash.com/photo-1508935620299-047e0e35fbe3?auto=format&fit=crop&w=500&q=80',
+      martillo:       'https://images.unsplash.com/photo-1581783898377-1c85bf937427?auto=format&fit=crop&w=500&q=80',
       nivel:          'https://images.unsplash.com/photo-1630419493571-5066ebfb5889?auto=format&fit=crop&w=500&q=80',
-      amoladora:      'https://images.unsplash.com/photo-1598302936625-6075fbd98dd7?auto=format&fit=crop&w=500&q=80',
+      amoladora:      'https://images.unsplash.com/photo-1515630771457-09367d0ae038?auto=format&fit=crop&w=500&q=80',
+      // Electricidad
       cinta:          'https://images.unsplash.com/photo-1760377821917-722e631cd716?auto=format&fit=crop&w=500&q=80',
       cable:          'https://images.unsplash.com/photo-1607631755187-298a3f9a640a?auto=format&fit=crop&w=500&q=80',
-      tomacorriente:  'https://images.unsplash.com/photo-1635335874521-7987db781153?auto=format&fit=crop&w=500&q=80',
-      lampara:        'https://images.unsplash.com/photo-1532007271951-c487760934ae?auto=format&fit=crop&w=500&q=80',
-      tablero:        'https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=500&q=80',
+      tomacorriente:  'https://images.unsplash.com/photo-1565049981953-379c9c2a5d48?auto=format&fit=crop&w=500&q=80',
+      lampara:        'https://images.unsplash.com/photo-1529310399831-ed472b81d589?auto=format&fit=crop&w=500&q=80',
+      tablero:        'https://images.unsplash.com/photo-1576446470246-499c738d1c8e?auto=format&fit=crop&w=500&q=80',
+      // Plomería
       pvc:            'https://images.unsplash.com/photo-1737574990049-264694ce17a0?auto=format&fit=crop&w=500&q=80',
-      canilla:        'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=500&q=80',
+      canilla:        'https://images.unsplash.com/photo-1761353854551-361b1c804849?auto=format&fit=crop&w=500&q=80',
       sifon:          'https://images.unsplash.com/photo-1538474705339-e87de81450e8?auto=format&fit=crop&w=500&q=80',
-      llave_paso:     'https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=500&q=80',
+      llave_paso:     'https://images.unsplash.com/photo-1639600993675-2281b2c939f0?auto=format&fit=crop&w=500&q=80',
+      // Pinturas
       latex:          'https://images.unsplash.com/photo-1585676737728-432f58d5fdba?auto=format&fit=crop&w=500&q=80',
-      esmalte:        'https://images.unsplash.com/photo-1548705085-101177834f47?auto=format&fit=crop&w=500&q=80',
-      rodillo:        'https://images.unsplash.com/photo-1489702932289-406b7782113c?auto=format&fit=crop&w=500&q=80',
-      sellador:       'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80',
-      cemento:        'https://images.unsplash.com/photo-1615875605825-5eb9bb5d52ac?auto=format&fit=crop&w=500&q=80',
-      ladrillo:       'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=500&q=80',
+      esmalte:        'https://images.unsplash.com/photo-1623944361530-8a6cd3eb0de8?auto=format&fit=crop&w=500&q=80',
+      rodillo:        'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80',
+      sellador:       'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=500&q=80',
+      // Construcción
+      cemento:        'https://images.unsplash.com/photo-1575493438282-4e0fb32d1bdd?auto=format&fit=crop&w=500&q=80',
+      ladrillo:       'https://images.unsplash.com/photo-1495578942200-c5f5d2137def?auto=format&fit=crop&w=500&q=80',
       varilla:        'https://images.unsplash.com/photo-1761479867761-7a8b11f54449?auto=format&fit=crop&w=500&q=80',
-      manguera:       'https://images.unsplash.com/photo-1684867430779-e66e779a19b7?auto=format&fit=crop&w=500&q=80',
-      tijera_jar:     'https://images.unsplash.com/photo-1680124744736-859f16257ef0?auto=format&fit=crop&w=500&q=80',
-      pala:           'https://images.unsplash.com/photo-1562090098-1929cdffc7c2?auto=format&fit=crop&w=500&q=80',
+      // Jardinería
+      manguera:       'https://images.unsplash.com/photo-1588501985911-6932ea666801?auto=format&fit=crop&w=500&q=80',
+      tijera_jar:     'https://images.unsplash.com/photo-1773234731719-3d3295d2a4de?auto=format&fit=crop&w=500&q=80',
+      pala:           'https://images.unsplash.com/photo-1647978403048-2e5099133ea3?auto=format&fit=crop&w=500&q=80',
+      // Seguridad
       casco:          'https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc?auto=format&fit=crop&w=500&q=80',
       guante:         'https://images.unsplash.com/photo-1617118602199-d3c05ae37ed8?auto=format&fit=crop&w=500&q=80',
       lente:          'https://images.unsplash.com/photo-1593854519602-687eae339d57?auto=format&fit=crop&w=500&q=80',
+      // Limpieza
       escoba:         'https://images.unsplash.com/photo-1647381518264-97ff1835026f?auto=format&fit=crop&w=500&q=80',
       mopa:           'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=500&q=80',
       lavandina:      'https://images.unsplash.com/photo-1584813470613-5b1c1cad3d69?auto=format&fit=crop&w=500&q=80',
+      // Tornillería
       tornillo:       'https://images.unsplash.com/photo-1613945831677-383c19ad7721?auto=format&fit=crop&w=500&q=80',
       tarugo:         'https://images.unsplash.com/photo-1503792574895-6074f691cc6a?auto=format&fit=crop&w=500&q=80',
       tuerca:         'https://images.unsplash.com/photo-1704732061018-3ac738176c20?auto=format&fit=crop&w=500&q=80',
+      // Adhesivos y selladores
       silicona:       'https://images.unsplash.com/photo-1560755341-c5417203d21c?auto=format&fit=crop&w=500&q=80',
-      pegamento:      'https://images.unsplash.com/photo-1536786724684-63545518d243?auto=format&fit=crop&w=500&q=80',
+      pegamento:      'https://images.unsplash.com/photo-1614162063681-1adc832305b1?auto=format&fit=crop&w=500&q=80',
       espuma:         'https://images.unsplash.com/photo-1643482081334-0b860cca9167?auto=format&fit=crop&w=500&q=80',
     };
 
