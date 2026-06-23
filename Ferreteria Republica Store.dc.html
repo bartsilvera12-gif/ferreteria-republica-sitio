@@ -583,10 +583,10 @@
               <button onClick="{{ clearCatalogSearch }}" style="position:absolute;right:13px;top:13px;width:26px;height:26px;border:none;border-radius:8px;background:rgba(255,255,255,.18);color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">✕</button>
             </sc-if>
           </div>
-          <button onClick="{{ toggleFilters }}" style="flex:none;height:50px;padding:0 18px;border-radius:13px;border:1.5px solid {{ filtersOpen ? '#E97932' : 'rgba(255,255,255,.22)' }};background:{{ filtersOpen ? '#E97932' : 'rgba(255,255,255,.1)' }};color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;font-family:Montserrat;transition:all .22s;">
+          <button onClick="{{ toggleFilters }}" style="{{ filterBtnStyle }}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-            Filtros{{ catalogCf !== 'Todos' ? ' · ' + catalogCf : '' }}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transition:transform .22s;transform:rotate({{ filtersOpen ? '180' : '0' }}deg)"><path d="M6 9l6 6 6-6"/></svg>
+            {{ filterBtnLabel }}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="{{ filterCaretStyle }}"><path d="M6 9l6 6 6-6"/></svg>
           </button>
         </div>
         <sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
@@ -1354,6 +1354,9 @@ class Component extends DCLogic {
       catalogResultLabel, catalogHasResults,
       catalogNoResults: !catalogHasResults,
       filtersOpen: st.filtersOpen,
+      filterBtnStyle: 'flex:none;height:50px;padding:0 18px;border-radius:13px;border:1.5px solid ' + (st.filtersOpen ? '#E97932' : 'rgba(255,255,255,.22)') + ';background:' + (st.filtersOpen ? '#E97932' : 'rgba(255,255,255,.08)') + ';color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;font-family:Montserrat;transition:all .22s;',
+      filterBtnLabel: 'Filtros' + (st.catalogFilter !== 'Todos' ? ' · ' + st.catalogFilter : ''),
+      filterCaretStyle: 'transition:transform .22s;transform:rotate(' + (st.filtersOpen ? '180' : '0') + 'deg);',
       toggleFilters: () => this.setState(s => ({ filtersOpen: !s.filtersOpen })),
     };
   }
